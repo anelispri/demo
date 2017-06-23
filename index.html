@@ -99,6 +99,7 @@
 		</script>
 
 		<script type="text/javascript">
+			alert("cambio");
 			// Enter an API key from the Google API Console:
 			//   https://console.developers.google.com/apis/credentials
 			var apiKey = 'AIzaSyA1i6KG6848oX52ucepDx7I2TlPVyZW7XU';
@@ -161,6 +162,7 @@
 					var p = document.createElement('p');
 					var name = resp.result.names[0].givenName;
 					var last = resp.result.names[0].familyName;
+					alert("name");
 					p.appendChild(document.createTextNode('Voluntario: '+name+' '+last));
 					document.getElementById('content').appendChild(p);
 					//<![CDATA[
