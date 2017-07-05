@@ -13,7 +13,7 @@
 			:root #content > #center > .dose > .dosesingle
 			{display:none !important;}
 		</style>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdlyTMmz1l_zvJpsdk5UNyHmBokqsk2nE"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1i6KG6848oX52ucepDx7I2TlPVyZW7XU"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/29/2/common.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/29/2/util.js"></script>
@@ -22,7 +22,7 @@
 			.container {
 				max-width: 980px;
 				text-align: center;
-				margin: 20px auto;
+				margin: 20px auto ;
 			}
 			h1 {
 				margin-bottom: 20px;
@@ -76,7 +76,7 @@
 			<form id="geocoding_form" class="form-horizontal">
 				<div class="form-group">
 					<div class="col-xs-12 col-md-6 col-md-offset-3">
-						<button type="button" id="authorize-button" class="find-me btn btn-info btn-block" style="display: block;">Ingresar</button>
+						<button type="button" id="authorize-button" class="find-me btn btn-info btn-block" style="display: block;">Ingreso</button>
 						<button type="button" id="signout-button" class="find-me btn btn-info btn-block" style="display: none;">Salir</button>
 					</div>
 				</div>
@@ -88,22 +88,6 @@
 				<div id="map"></div>
 			</div>
 		</div>
-		
-		<div class="container">
-  			<h2>Compañía N°</h2>
- 				 <div class="dropdown">
-    			<button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Estación N°<span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-      			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Pto Montt</a></li>
-      			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Pto Varas</a></li>
-      			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Los Muermos</a></li>    
-    </ul>
-  		</div><br>
-		<script>
-			$(document).ready(function(){
-    			$(".dropdown-toggle").dropdown();
-			});
-		</script>
 		<script>
 			// tell the embed parent frame the height of the content
 			if (window.parent && window.parent.parent){
@@ -115,22 +99,23 @@
 		</script>
 
 		<script type="text/javascript">
+			alert("cambio");
 			// Enter an API key from the Google API Console:
 			//   https://console.developers.google.com/apis/credentials
-			var apiKey = 'AIzaSyAdlyTMmz1l_zvJpsdk5UNyHmBokqsk2nE';
+			var apiKey = 'AIzaSyA1i6KG6848oX52ucepDx7I2TlPVyZW7XU';
 			// Enter the API Discovery Docs that describes the APIs you want to
 			// access. In this example, we are accessing the People API, so we load
 			// Discovery Doc found here: https://developers.google.com/people/api/rest/
-			var discoveryDocs = ["https://www.googleapis.com/plus/v1/people/userId"];
+			var discoveryDocs = ["https://people.googleapis.com/$discovery/rest?version=v1"];
 			// Enter a client ID for a web application from the Google API Console:
 			//   https://console.developers.google.com/apis/credentials?project=_
 			// In your API Console project, add a JavaScript origin that corresponds
 			//   to the domain where you will be running the script.
-			var clientId = '1039676381579-raraj3rjl244gfvd99j7mfbocc3dfbvi.apps.googleusercontent.com';
+			var clientId = '935334437042-rhlpk89jbnqnngo7i7pdii3o02hj00nj.apps.googleusercontent.com';
 			// Enter one or more authorization scopes. Refer to the documentation for
 			// the API or https://developers.google.com/people/v1/how-tos/authorizing
 			// for details.
-			//var scopes = 'profile';
+			var scopes = 'profile';
 			var authorizeButton = document.getElementById('authorize-button');
 			var signoutButton = document.getElementById('signout-button');
 			function handleClientLoad() {
@@ -168,17 +153,17 @@
 			function handleSignoutClick(event) {
 				gapi.auth2.getAuthInstance().signOut();
 			}
-//	 			console.log('ID: ' + resp.id);
-//	  			console.log('Display Name: ' + resp.displayName);
-//	  			console.log('Image URL: ' + resp.image.url);
-//	  			console.log('Profile URL: ' + resp.url);
+			// Load the API and make an API call.  Display the results on the screen.
 			function makeApiCall() {
-				gapi.client.plus.people.get({
-  					'userId' : 'me'
+				gapi.client.people.people.get({
+					'resourceName': 'people/me',
+					'requestMask.includeField': 'person.names'
 				}).then(function(resp) {
 					var p = document.createElement('p');
-					var name = resp.displayName;
-					p.appendChild(document.createTextNode('Voluntario: ' +name));
+					var name = resp.result.names[0].givenName;
+					var last = resp.result.names[0].familyName;
+					alert("name");
+					p.appendChild(document.createTextNode('Voluntario: '+name+' '+last));
 					document.getElementById('content').appendChild(p);
 					//<![CDATA[
 					var findMeButton = $('.find-me');
