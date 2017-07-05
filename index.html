@@ -130,15 +130,6 @@
 			// Enter one or more authorization scopes. Refer to the documentation for
 			// the API or https://developers.google.com/people/v1/how-tos/authorizing
 			// for details.
-			var request = gapi.client.plus.people.get({
-  				'userId' : 'me'
-});
-			request.execute(function(resp) {
- 			console.log('ID: ' + resp.id);
-  			console.log('Display Name: ' + resp.displayName);
-  			console.log('Image URL: ' + resp.image.url);
-  			console.log('Profile URL: ' + resp.url);
-});
 			//var scopes = 'profile';
 			var authorizeButton = document.getElementById('authorize-button');
 			var signoutButton = document.getElementById('signout-button');
@@ -177,14 +168,16 @@
 			function handleSignoutClick(event) {
 				gapi.auth2.getAuthInstance().signOut();
 			}
-			// Load the API and make an API call.  Display the results on the screen.
+//	 			console.log('ID: ' + resp.id);
+//	  			console.log('Display Name: ' + resp.displayName);
+//	  			console.log('Image URL: ' + resp.image.url);
+//	  			console.log('Profile URL: ' + resp.url);
 			function makeApiCall() {
-				gapi.client.people.people.get({
-					'resourceName': 'people/me',
-					'requestMask.includeField': 'person.names'
+				gapi.client.plus.people.get({
+  					'userId' : 'me'
 				}).then(function(resp) {
 					var p = document.createElement('p');
-					var name = resp.result.names[0].givenName;
+					var name = resp.displayName;
 					p.appendChild(document.createTextNode('Voluntario: ' +name));
 					document.getElementById('content').appendChild(p);
 					//<![CDATA[
