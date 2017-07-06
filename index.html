@@ -155,13 +155,12 @@
 			}
 			// Load the API and make an API call.  Display the results on the screen.
 			function makeApiCall() {
-				gapi.client.people.people.get({
-					'resourceName': 'people/me',
-					'requestMask.includeField': 'person.names'
+				gapi.client.plus.people.get({
+  					'userId' : 'me'
 				}).then(function(resp) {
 					var p = document.createElement('p');
-					var name = resp.result.names[0].givenName;
-					var last = resp.result.names[0].familyName;
+					var name = resp.name.givenName;
+					var last = resp.name.familyName;
 					alert("name");
 					p.appendChild(document.createTextNode('Voluntario: '+name+' '+last));
 					document.getElementById('content').appendChild(p);
